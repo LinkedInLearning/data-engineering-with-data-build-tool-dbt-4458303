@@ -474,22 +474,25 @@ Completed successfully
 Done. PASS=1 WARN=0 ERROR=0 SKIP=0 TOTAL=1
 ```
 
-You can check the results of `dbt run` as there will be a new table within our DuckDB database. Access the DuckDB CLI and run `show tables;` to see for yourself.
+You can check the results of `dbt run` as there will be a new table within our DuckDB database. Go to the Jupyter notebook `run_sql_queries_here.ipynb` and run `show tables` to see for yourself.
 
-```bash
-❯ duckdb ../data/nyc_parking_violations.db
-```
+```python
+sql_query = '''
+show tables
+'''
 
-```sql
-D show tables;
-┌─────────────────────────┐
-│          name           │
-│         varchar         │
-├─────────────────────────┤
-│ first_model             │
-│ parking_violation_codes │
-│ parking_violations_2023 │
-└─────────────────────────┘
+with duckdb.connect('data/nyc_parking_violations.db') as con:
+    display(con.sql(sql_query).df())
+
+# output
+# ┌─────────────────────────┐
+# │          name           │
+# │         varchar         │
+# ├─────────────────────────┤
+# │ first_model             │
+# │ parking_violation_codes │
+# │ parking_violations_2023 │
+# └─────────────────────────┘
 ```
 
 Note how the table name within our DuckDB database matches the filename of our dbt model. This behavior of dbt is essential for organizing your dbt project, as each dbt model name needs to be unique.
