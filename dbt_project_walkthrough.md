@@ -108,26 +108,12 @@ duckdb==0.9.0
 
 ## Step 3: Prepare Your Database Environment
 
-In most cases, you will likely be connecting dbt Core to an existing database. For this tutorial, we are leveraging DuckDB so that everything can be done locally and within the terminal. Thus, we need to setup our DuckDB database in a few commands.
+In most cases, you will likely be connecting dbt Core to an existing database. For this tutorial, we are leveraging DuckDB so that everything can be done locally and within a Jupyter notebook. Thus, we need to setup our DuckDB database in a few commands.
 
 ### Create your database file:
 
-Within your terminal, navigate to the data folder:
-```bash
-❯ cd data
-```
-Within your terminal, create a file called `nyc_parking_violations.db` within the `data` folder using the DuckDB database creation workflow.
-```bash
-❯ duckdb data/nyc_parking_violations.db
-```
-Then run `show tables;` within the DuckDB CLI, which will autogenerate the file `nyc_parking_violations.db` and create a `.wal` file that you can ignore.
+Since the database doesn't exist yet, DuckDB will autogenerate the file `nyc_parking_violations.db` whenver you run a SQL command. Run the following code within the notebook `run_sql_queries_here.ipynb`:
 
-You should now see the database file within your data folder.
-![](./assets/images/touch_database.png)
-
-### Import CSV data into your new database:
-
-If you exited the database instance from the previous step, you can access the DuckDB CLI for our recently created database by running the `duckdb` command in the terminal and appending the path to the database.
 ```python
 sql_query = '''
 show tables
@@ -137,37 +123,77 @@ with duckdb.connect('data/nyc_parking_violations.db') as con:
     display(con.sql(sql_query).df())
 ```
 
-Once the database is activated, you can insert the CSV data with the following SQL commands within the DuckDB CLI:
-```sql
-CREATE TABLE parking_violation_codes AS SELECT * FROM read_csv_auto('data/dof_parking_violation_codes.csv', normalize_names=True);
+You should now see the database file within your data folder.
+
+![](./assets/images/touch_database.png)
+
+### Import CSV data into your new database:
+
+Once the database is activated, you can insert the CSV data with the following SQL commands within the DuckDB Python interface in the notebook:
+
+```python
+sql_query_import_1 = '''
+CREATE OR REPLACE TABLE parking_violation_codes AS
+SELECT *
+FROM read_csv_auto(
+  'data/dof_parking_violation_codes.csv',
+  normalize_names=True
+  )
+'''
+
+sql_query_import_2 = '''
+CREATE OR REPLACE TABLE parking_violations_2023 AS
+SELECT *
+FROM read_csv_auto(
+  'data/parking_violations_issued_fiscal_year_2023_sample.csv',
+  normalize_names=True
+  )
+'''
+
+with duckdb.connect('data/nyc_parking_violations.db') as con:
+  con.sql(sql_query_import_1)
+  con.sql(sql_query_import_2)
 ```
-```sql
-CREATE TABLE parking_violations_2023 AS SELECT * FROM read_csv_auto('data/parking_violations_issued_fiscal_year_2023_sample.csv', normalize_names=True);
+Now let's run `show tables` again within the SQL cell, and we should see our new tables within DuckDB.
+
+```python
+sql_query = '''
+show tables
+'''
+
+with duckdb.connect('data/nyc_parking_violations.db') as con:
+    display(con.sql(sql_query).df())
+
+# output
+# ┌─────────────────────────┐
+# │          name           │
+# │         varchar         │
+# ├─────────────────────────┤
+# │ parking_violation_codes │
+# │ parking_violations_2023 │
+# └─────────────────────────┘
 ```
-Now when we run `show tables;` within the DuckDB CLI we should see the following:
-```sql
-D show tables ;
-┌─────────────────────────┐
-│          name           │
-│         varchar         │
-├─────────────────────────┤
-│ parking_violation_codes │
-│ parking_violations_2023 │
-└─────────────────────────┘
-```
-We can also query our data with SQL within the DuckDB CLI:
-```sql
-D SELECT * FROM parking_violation_codes LIMIT 5 ;
-┌───────┬────────────────────────────────┬─────────────────────────┬─────────────────┐
-│ code  │           definition           │ manhattan_96th_st_below │ all_other_areas │
-│ int64 │            varchar             │          int64          │      int64      │
-├───────┼────────────────────────────────┼─────────────────────────┼─────────────────┤
-│     1 │ FAILURE TO DISPLAY BUS PERMIT  │                     515 │             515 │
-│     2 │ NO OPERATOR NAM/ADD/PH DISPLAY │                     515 │             515 │
-│     3 │ UNAUTHORIZED PASSENGER PICK-UP │                     515 │             515 │
-│     4 │ BUS PARKING IN LOWER MANHATTAN │                     115 │             115 │
-│     5 │ BUS LANE VIOLATION             │                     250 │             250 │
-└───────┴────────────────────────────────┴─────────────────────────┴─────────────────┘
+
+We can also query our data with the SQL cell via the following:
+```python
+sql_query = '''
+SELECT * FROM parking_violation_codes LIMIT 5
+'''
+
+with duckdb.connect('data/nyc_parking_violations.db') as con:
+    display(con.sql(sql_query).df())
+
+# output
+# ┌───────┬────────────────────────────────┬─────────────────────────┬─────────────────┐
+# │ code  │           definition           │ manhattan_96th_st_below │ all_other_areas │
+# │ int64 │            varchar             │          int64          │      int64      │
+# ├───────┼────────────────────────────────┼─────────────────────────┼─────────────────┤
+# │     1 │ FAILURE TO DISPLAY BUS PERMIT  │                     515 │             515 │
+# │     2 │ NO OPERATOR NAM/ADD/PH DISPLAY │                     515 │             515 │
+# │     3 │ UNAUTHORIZED PASSENGER PICK-UP │                     515 │             515 │
+# │     4 │ BUS PARKING IN LOWER MANHATTAN │                     115 │             115 │
+# │     5 │ BUS LANE VIOLATION             │                     250 │             250 │
+# └───────┴────────────────────────────────┴─────────────────────────┴─────────────────┘
 ```
 
 ## Step 4: Create a dbt Project
