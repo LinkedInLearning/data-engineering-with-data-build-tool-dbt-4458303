@@ -657,7 +657,6 @@ Next lets add our SQL code to `bronze_parking_violations.sql`. Note that there a
 ```sql
 SELECT
     summons_number,
-    plate_id,
     registration_state,
     plate_type,
     issue_date,
@@ -665,9 +664,6 @@ SELECT
     vehicle_body_type,
     vehicle_make,
     issuing_agency,
-    street_code1,
-    street_code2,
-    street_code3,
     vehicle_expiration_date,
     violation_location,
     violation_precinct,
@@ -677,12 +673,9 @@ SELECT
     issuer_squad,
     violation_time,
     violation_county,
-    street_name,
     violation_legal_code,
     vehicle_color,
     vehicle_year,
-    violation_post_code,
-    violation_description
 FROM
     parking_violations_2023
 ```
@@ -821,7 +814,6 @@ I want to heavily caveat that resolving these business logic nuances is a core p
 ```sql
 SELECT
     summons_number,
-    plate_id,
     registration_state,
     plate_type,
     issue_date,
@@ -829,9 +821,6 @@ SELECT
     vehicle_body_type,
     vehicle_make,
     issuing_agency,
-    street_code1,
-    street_code2,
-    street_code3,
     vehicle_expiration_date,
     violation_location,
     violation_precinct,
@@ -841,12 +830,9 @@ SELECT
     issuer_squad,
     violation_time,
     violation_county,
-    street_name,
     violation_legal_code,
     vehicle_color,
     vehicle_year,
-    violation_post_code,
-    violation_description,
     CASE WHEN
         violation_county == 'MN'
         THEN TRUE
@@ -867,9 +853,6 @@ SELECT
     violations.violation_code,
     violations.is_manhattan_96th_st_below,
     violations.issuing_agency,
-    violations.street_code1,
-    violations.street_code2,
-    violations.street_code3,
     violations.violation_location,
     violations.violation_precinct,
     violations.issuer_precinct,
@@ -878,10 +861,7 @@ SELECT
     violations.issuer_squad,
     violations.violation_time,
     violations.violation_county,
-    violations.street_name,
     violations.violation_legal_code,
-    violations.violation_post_code,
-    violations.violation_description,
     codes.fee_usd
 FROM
     {{ref('silver_parking_violations')}} AS violations
@@ -898,7 +878,6 @@ Finally, we will add our SQL code to the last silver table, `silver_violation_ve
 ```sql
 SELECT
     summons_number,
-    plate_id,
     registration_state,
     plate_type,
     vehicle_body_type,
@@ -1027,12 +1006,14 @@ We will create our final SQL code for this tutorial with `gold_vehicles_metrics.
 
 ```sql
 SELECT
-    plate_id,
+    registration_state,
     COUNT(summons_number) AS ticket_count,
 FROM
     {{ref('silver_violation_vehicles')}}
+WHERE
+    registration_state != 'NY'
 GROUP BY
-    plate_id
+    registration_state
 ORDER BY
     ticket_count DESC
 ```
