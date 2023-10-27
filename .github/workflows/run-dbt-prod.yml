@@ -40,4 +40,4 @@ jobs:
     - name: Test dbt Prod
       # dbt test --target prod
       run: |
-        dbt test
+        dbt build
