@@ -1370,5 +1370,190 @@ Now, when we generate our dbt docs again, you can see an entirely documented dbt
 ```
 
 ## Step 15: Implementing Tests Within Your dbt Project
+Create slide:
+- dbt tests
+  - singular
+  - generic
+  - out-of-box generic
+    - unique, not_null, accepted_values, and relationships
 
-## Step 16: Deploying Your dbt Project
+### Creating custom singular tests
+```sql
+-- test/violation_codes_revenue.sql
+-- Every violation code should have a total fee amount
+-- greater than or equal to $1.
+{{ config(severity = 'warn') }}
+
+SELECT
+    violation_code,
+    SUM(fee_usd) AS total_revenue_usd
+FROM
+    {{ref('silver_parking_violation_codes')}}
+GROUP BY
+    violation_code
+HAVING
+    NOT(total_revenue_usd >= 1)
+```
+
+### Creating custom generic tests
+
+```sql
+-- test/generic/generic_not_null.sql
+-- source: https://docs.getdbt.com/guides/best-practices/writing-custom-generic-tests#generic-tests-with-default-config-values
+{% test generic_not_null(model, column_name) %}
+
+    select *
+    from {{ model }}
+    where {{ column_name }} is null
+
+{% endtest %}
+```
+
+### Implementing tests within the `schema.yml` file
+
+docs: https://docs.getdbt.com/docs/build/tests
+> Out of the box, dbt ships with four generic tests already defined: unique, not_null, accepted_values and relationships
+
+```yaml
+  - name: bronze_parking_violations 
+    description: Raw data related to parking violations in 2023, encompassing various details about each violation.
+    columns:
+      - name: summons_number
+        description: '{{ doc("summons_number") }}'
+        tests:
+          - unique
+            config:
+                severity: error
+                error_if: ">100"
+                warn_if: ">1"
+          - not_null
+            config:
+                severity: error
+                error_if: ">1000"
+                warn_if: ">10"
+```
+
+### Using the `dbt test` CLI command
+
+
+
+```yaml
+  - name: bronze_parking_violations 
+    description: Raw data related to parking violations in 2023, encompassing various details about each violation.
+    columns:
+      - name: summons_number
+        description: '{{ doc("summons_number") }}'
+        tests:
+          - unique
+            config:
+                severity: error
+                error_if: '>100'
+                warn_if: '>1'
+          - not_null
+            config:
+                severity: error
+                error_if: '>1000'
+                warn_if: '>10'
+          - generic_not_null
+            config:
+                severity: error
+                error_if: ">1000"
+                warn_if: '>10'
+```
+
+### Storing test failures
+
+```yaml
+# dbt_project.yml
+tests:
+  +store_failures: true
+```
+
+## Step 16: Deploying Your dbt Project to Prod
+
+### Creating a prod profile
+
+```python
+sql_query_import_1 = '''
+CREATE OR REPLACE TABLE parking_violation_codes AS
+SELECT *
+FROM read_csv_auto(
+  'data/dof_parking_violation_codes.csv',
+  normalize_names=True
+  )
+'''
+
+sql_query_import_2 = '''
+CREATE OR REPLACE TABLE parking_violations_2023 AS
+SELECT *
+FROM read_csv_auto(
+  'data/parking_violations_issued_fiscal_year_2023_sample.csv',
+  normalize_names=True
+  )
+'''
+
+with duckdb.connect('data/prod_nyc_parking_violations.db') as con:
+  con.sql(sql_query_import_1)
+  con.sql(sql_query_import_2)
+```
+
+```yaml
+# profiles.yml
+nyc_parking_violations:
+  outputs:
+   dev:
+     type: duckdb
+     path: '../data/nyc_parking_violations.db'
+   prod:
+     type: duckdb
+     # note that path is slightly different as GitHub actions
+     # start in the root directory and not in the
+     # nyc_parking_violations directory
+     path: './data/prod_nyc_parking_violations.db'  
+  target: dev
+```
+
+### Deploying with GitHub Actions
+
+```yaml
+# .github/workflows/run-dbt-prod.yml
+name: run_dbt_prod
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  # schedule:
+  #   - cron: '0 8 * * *'
+
+env:
+  DBT_PROFILES_DIR: ./nyc_parking_violations
+  DBT_PROJECT_DIR: ./nyc_parking_violations
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Run dbt Prod
+      run: |
+        dbt debug
+        dbt compile --target prod
+        dbt run --target prod
+    - name: Test dbt Prod
+      run: |
+        dbt test --target prod
+```
+
+###
