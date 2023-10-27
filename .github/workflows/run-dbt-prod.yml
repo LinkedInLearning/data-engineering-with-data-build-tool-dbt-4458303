@@ -13,6 +13,7 @@ on:
 
 env:
   DBT_PROFILES_DIR: ./nyc_parking_violations
+  DBT_PROJECT_DIR: ./nyc_parking_violations
 
 jobs:
   build:
