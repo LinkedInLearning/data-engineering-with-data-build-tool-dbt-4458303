@@ -34,7 +34,6 @@ jobs:
       # dbt compile --target prod
       # dbt run --target prod
       run: |
-        cd nyc_parking_violations
         dbt debug
         dbt compile
         dbt run
