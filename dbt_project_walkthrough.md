@@ -1422,15 +1422,7 @@ docs: https://docs.getdbt.com/docs/build/tests
         description: '{{ doc("summons_number") }}'
         tests:
           - unique
-            config:
-                severity: error
-                error_if: ">100"
-                warn_if: ">1"
           - not_null
-            config:
-                severity: error
-                error_if: ">1000"
-                warn_if: ">10"
 ```
 
 ### Using the `dbt test` CLI command
@@ -1445,20 +1437,8 @@ docs: https://docs.getdbt.com/docs/build/tests
         description: '{{ doc("summons_number") }}'
         tests:
           - unique
-            config:
-                severity: error
-                error_if: '>100'
-                warn_if: '>1'
           - not_null
-            config:
-                severity: error
-                error_if: '>1000'
-                warn_if: '>10'
           - generic_not_null
-            config:
-                severity: error
-                error_if: ">1000"
-                warn_if: '>10'
 ```
 
 ### Storing test failures
