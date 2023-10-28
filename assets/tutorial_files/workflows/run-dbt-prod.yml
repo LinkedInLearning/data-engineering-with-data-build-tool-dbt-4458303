@@ -1,0 +1,38 @@
+# .github/workflows/run-dbt-prod.yml
+name: run_dbt_prod
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  # schedule:
+  #   - cron: '0 8 * * *'
+
+env:
+  DBT_PROFILES_DIR: ./nyc_parking_violations
+  DBT_PROJECT_DIR: ./nyc_parking_violations
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Run dbt Prod
+      run: |
+        dbt debug
+        dbt compile --target prod
+        dbt run --target prod
+    - name: Test dbt Prod
+      run: |
+        dbt test --target prod
