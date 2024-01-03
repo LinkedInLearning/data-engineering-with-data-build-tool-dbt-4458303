@@ -1,7 +1,9 @@
-# COURSENAME
-This is the repository for the LinkedIn Learning course `course-name`. The full course is available from [LinkedIn Learning][lil-course-url].
+# Data Engineering with Data Build Tool (DBT)
+This is the repository for the LinkedIn Learning course `Data Engineering with Data Build Tool (DBT)`. The full course is available from [LinkedIn Learning][lil-course-url].
 
 ![course-name-alt-text][lil-thumbnail-url] 
+
+Data Build Tool (dbt) has quickly become an essential tool in many data stacks ranging from startups to big tech for managing data transformations. In this course, data engineer Mark Freeman helps you get started with setting up, running, and managing a dbt project via the open-source offering dbt Core. Learn how to install dbt Core, configure an environment for dbt, create and manage a dbt project, and deploy a dbt project in production. If you’re a data professional tasked with implementing dbt within your organization, recently joined a team utilizing dbt and need to upskill, or just want to learn about dbt to increase your competitiveness within the data job market, check out this course.
 
 _See the readme file in the main branch for updated instructions and information._
 ## Instructions
@@ -22,15 +24,9 @@ To resolve this issue:
     Add changes to git using this command: git add .
 	Commit changes using this command: git commit -m "some message"
 
-## Installing
-1. To use these exercise files, you must have the following installed:
-	- [list of requirements for course]
-2. Clone this repository into your local machine using the terminal (Mac), CMD (Windows), or a GUI tool like SourceTree.
-3. [Course-specific instructions]
-
 
 [0]: # (Replace these placeholder URLs with actual course URLs)
 
-[lil-course-url]: https://www.linkedin.com/learning/
-[lil-thumbnail-url]: http://
+[lil-course-url]: https://www.linkedin.com/learning/data-engineering-with-dbt
+[lil-thumbnail-url]: https://media.licdn.com/dms/image/D560DAQHnrbGtKKAabg/learning-public-crop_675_1200/0/1703199806902?e=2147483647&v=beta&t=Q6jKFTslSvhl3bYTkd0PuIEVnIx26lCa-XWVE5hCmm0
 
