@@ -1,4 +1,4 @@
-defaults:
+my_nyc_parking_viol_project:
   outputs:
     dev:
     type: duckdb
