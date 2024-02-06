@@ -1,5 +1,5 @@
 my_nyc_parking_viol_project:
   outputs:
     dev:
-    type: duckdb
+      type: duckdb
   target: dev
