@@ -2,4 +2,5 @@ my_nyc_parking_viol_project:
   outputs:
     dev:
       type: duckdb
+      path: '../data/nyc_parking_violations.db'
   target: dev
