@@ -33,8 +33,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   my_nyc_parking_viol_project:
     # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: ephemeral
     bronze:
       +materialized: view
     silver:
