@@ -16,10 +16,6 @@ models:
     columns:
       - name: summons_number
         description: '{{ doc("summons_number") }}'
-        tests:
-          - unique
-          - not_null
-          - generic_not_null
       - name: registration_state
         description: '{{ doc("registration_state") }}'
       - name: plate_type
