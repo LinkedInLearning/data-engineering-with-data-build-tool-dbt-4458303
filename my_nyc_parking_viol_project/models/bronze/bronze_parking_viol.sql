@@ -20,4 +20,4 @@ SELECT
     vehicle_color,
     vehicle_year,
 FROM
-    parking_violations_2023
+    parking_violation_2023

@@ -10,8 +10,8 @@ on:
   #   - cron: '0 8 * * *'
 
 env:
-  DBT_PROFILES_DIR: ./nyc_parking_violations
-  DBT_PROJECT_DIR: ./nyc_parking_violations
+  DBT_PROFILES_DIR: ./my_nyc_parking_vio_project
+  DBT_PROJECT_DIR: ./my_nyc_parking_viol_project
 
 jobs:
   build:

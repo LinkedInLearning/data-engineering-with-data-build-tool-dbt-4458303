@@ -169,7 +169,7 @@ models:
       - name: vehicle_year
         description: '{{ doc("vehicle_year") }}'
 
-  - name: Gold_ticket_metrics
+  - name: Gold_ticket_metric
     description: "Aggregated metrics representing the total tickets and revenue by violation code."
     columns:
       - name: violation_code
@@ -179,7 +179,7 @@ models:
       - name: total_revenue_usd
         description: '{{ doc("total_revenue_usd") }}'
 
-  - name: Gold_vehicles_metrics
+  - name: Gold_vehicle_metric
     description: "Aggregated metrics detailing the number of tickets per vehicle, identified by the plate ID."
     columns:
       - name: registration_state
