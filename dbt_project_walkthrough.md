@@ -654,7 +654,6 @@ Next lets add our SQL code to `bronze_parking_violations.sql`. Note that there a
 ```sql
 SELECT
     summons_number,
-    plate_id,
     registration_state,
     plate_type,
     issue_date,
@@ -662,9 +661,6 @@ SELECT
     vehicle_body_type,
     vehicle_make,
     issuing_agency,
-    street_code1,
-    street_code2,
-    street_code3,
     vehicle_expiration_date,
     violation_location,
     violation_precinct,
@@ -674,12 +670,9 @@ SELECT
     issuer_squad,
     violation_time,
     violation_county,
-    street_name,
     violation_legal_code,
     vehicle_color,
-    vehicle_year,
-    violation_post_code,
-    violation_description
+    vehicle_year
 FROM
     parking_violations_2023
 ```
