@@ -18,10 +18,6 @@ The fee in $USD for a violation not on or below Manhattan 96th Street.
 Unique identifier for each summons issued for a parking violation.
 {% enddocs %}
 
-{% docs plate_id %}
-Identifier of the vehicle's license plate.
-{% enddocs %}
-
 {% docs registration_state %}
 The state where the vehicle is registered.
 {% enddocs %}
@@ -44,18 +40,6 @@ The make or brand of the vehicle.
 
 {% docs issuing_agency %}
 The agency that issued the summons.
-{% enddocs %}
-
-{% docs street_code1 %}
-Code pertaining to the street related to the first violation location.
-{% enddocs %}
-
-{% docs street_code2 %}
-Code pertaining to the street related to the second violation location.
-{% enddocs %}
-
-{% docs street_code3 %}
-Code pertaining to the street related to the third violation location.
 {% enddocs %}
 
 {% docs vehicle_expiration_date %}
@@ -94,10 +78,6 @@ Time when the violation occurred.
 County where the violation took place.
 {% enddocs %}
 
-{% docs street_name %}
-Name of the street where the violation occurred.
-{% enddocs %}
-
 {% docs violation_legal_code %}
 Legal code associated with the violation.
 {% enddocs %}
@@ -108,14 +88,6 @@ Color of the vehicle involved in the violation.
 
 {% docs vehicle_year %}
 Manufacturing year of the vehicle.
-{% enddocs %}
-
-{% docs violation_post_code %}
-Postal code of the area where the violation occurred.
-{% enddocs %}
-
-{% docs violation_description %}
-Detailed description of the violation.
 {% enddocs %}
 
 {% docs fee_usd %}

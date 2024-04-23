@@ -16,8 +16,10 @@ models:
     columns:
       - name: summons_number
         description: '{{ doc("summons_number") }}'
-      - name: plate_id
-        description: '{{ doc("plate_id") }}'
+        tests:
+          - unique
+          - not_null
+          - generic_not_null
       - name: registration_state
         description: '{{ doc("registration_state") }}'
       - name: plate_type
@@ -32,12 +34,6 @@ models:
         description: '{{ doc("vehicle_make") }}'
       - name: issuing_agency
         description: '{{ doc("issuing_agency") }}'
-      - name: street_code1
-        description: '{{ doc("street_code1") }}'
-      - name: street_code2
-        description: '{{ doc("street_code2") }}'
-      - name: street_code3
-        description: '{{ doc("street_code3") }}'
       - name: vehicle_expiration_date
         description: '{{ doc("vehicle_expiration_date") }}'
       - name: violation_location
@@ -56,18 +52,12 @@ models:
         description: '{{ doc("violation_time") }}'
       - name: violation_county
         description: '{{ doc("violation_county") }}'
-      - name: street_name
-        description: '{{ doc("street_name") }}'
       - name: violation_legal_code
         description: '{{ doc("violation_legal_code") }}'
       - name: vehicle_color
         description: '{{ doc("vehicle_color") }}'
       - name: vehicle_year
         description: '{{ doc("vehicle_year") }}'
-      - name: violation_post_code
-        description: '{{ doc("violation_post_code") }}'
-      - name: violation_description
-        description: '{{ doc("violation_description") }}'
 
   - name: silver_parking_violation_codes
     description: "This model unifies violation codes, providing a comprehensive view of violations, indicating whether they occurred on/below 96th St in Manhattan or in other areas, along with the respective fees in USD."
@@ -86,8 +76,6 @@ models:
     columns:
       - name: summons_number
         description: '{{ doc("summons_number") }}'
-      - name: plate_id
-        description: '{{ doc("plate_id") }}'
       - name: registration_state
         description: '{{ doc("registration_state") }}'
       - name: plate_type
@@ -102,12 +90,6 @@ models:
         description: '{{ doc("vehicle_make") }}'
       - name: issuing_agency
         description: '{{ doc("issuing_agency") }}'
-      - name: street_code1
-        description: '{{ doc("street_code1") }}'
-      - name: street_code2
-        description: '{{ doc("street_code2") }}'
-      - name: street_code3
-        description: '{{ doc("street_code3") }}'
       - name: vehicle_expiration_date
         description: '{{ doc("vehicle_expiration_date") }}'
       - name: violation_location
@@ -126,18 +108,12 @@ models:
         description: '{{ doc("violation_time") }}'
       - name: violation_county
         description: '{{ doc("violation_county") }}'
-      - name: street_name
-        description: '{{ doc("street_name") }}'
       - name: violation_legal_code
         description: '{{ doc("violation_legal_code") }}'
       - name: vehicle_color
         description: '{{ doc("vehicle_color") }}'
       - name: vehicle_year
         description: '{{ doc("vehicle_year") }}'
-      - name: violation_post_code
-        description: '{{ doc("violation_post_code") }}'
-      - name: violation_description
-        description: '{{ doc("violation_description") }}'
       - name: is_manhattan_96th_st_below
         description: '{{ doc("is_manhattan_96th_st_below") }}'
 
@@ -154,12 +130,6 @@ models:
         description: '{{ doc("is_manhattan_96th_st_below") }}'
       - name: issuing_agency
         description: '{{ doc("issuing_agency") }}'
-      - name: street_code1
-        description: '{{ doc("street_code1") }}'
-      - name: street_code2
-        description: '{{ doc("street_code2") }}'
-      - name: street_code3
-        description: '{{ doc("street_code3") }}'
       - name: violation_location
         description: '{{ doc("violation_location") }}'
       - name: violation_precinct
@@ -176,19 +146,14 @@ models:
         description: '{{ doc("violation_time") }}'
       - name: violation_county
         description: '{{ doc("violation_county") }}'
-      - name: street_name
-        description: '{{ doc("street_name") }}'
       - name: violation_legal_code
         description: '{{ doc("violation_legal_code") }}'
-      - name: violation_post_code
 
   - name: silver_violation_vehicles
     description: "Details of the vehicles involved in parking violations."
     columns:
       - name: summons_number
         description: '{{ doc("summons_number") }}'
-      - name: plate_id
-        description: '{{ doc("plate_id") }}'
       - name: registration_state
         description: '{{ doc("registration_state") }}'
       - name: plate_type
@@ -217,7 +182,7 @@ models:
   - name: gold_vehicles_metrics
     description: "Aggregated metrics detailing the number of tickets per vehicle, identified by the plate ID."
     columns:
-      - name: plate_id
-        description: '{{ doc("plate_id") }}'
+      - name: registration_state
+        description: '{{ doc("registration_state") }}'
       - name: ticket_count
         description: '{{ doc("ticket_count") }}'
