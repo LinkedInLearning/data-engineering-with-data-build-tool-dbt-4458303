@@ -1,5 +1,5 @@
 models:
-  - name: bronze_parking_violation_codes
+  - name: bronze_parking_violations_codes
     description: Raw data representing the violation codes and their fees.
     columns:
       - name: violation_code
