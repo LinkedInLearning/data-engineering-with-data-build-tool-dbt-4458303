@@ -5,3 +5,5 @@ SELECT
     all_other_areas
 FROM
     parking_violation_codes
+
+   --- SELECT * FROM parking_violation_codes

@@ -1,4 +1,4 @@
-
+ 
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
@@ -30,7 +30,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # In this example config, we tell dbt to build all models in the example/
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
-models:
+models:        
   nyc_parking_violations:
     # Config indicated by + and applies to all files under models/example/
     example:
@@ -49,4 +49,5 @@ models:
     gold:
       +materialized: table
 tests:
-  +store_failures: true
+  +store_failure: true
+
