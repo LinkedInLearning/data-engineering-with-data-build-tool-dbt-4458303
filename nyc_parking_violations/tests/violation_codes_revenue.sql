@@ -1,4 +1,4 @@
-{{ config(severity = 'warn') }}
+{{ config(severity = 'warn')}}
 
 SELECT
     violation_code,
