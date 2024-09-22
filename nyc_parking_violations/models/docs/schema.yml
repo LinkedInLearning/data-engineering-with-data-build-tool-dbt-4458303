@@ -179,7 +179,7 @@ models:
       - name: total_revenue_usd
         description: '{{ doc("total_revenue_usd") }}'
 
-  - name: gold_vehicles_metrics
+  - name: gold_vehicle_metrics
     description: "Aggregated metrics detailing the number of tickets per vehicle, identified by the plate ID."
     columns:
       - name: registration_state

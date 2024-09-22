@@ -47,6 +47,7 @@ models:
       silver_violation_vehicles:
         +materialized: view
     gold:
-      +materialized: table
-tests:
-  +store_failures: true
+      +materialized: view
+
+      
+      
