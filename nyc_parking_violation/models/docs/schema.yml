@@ -1,0 +1,17 @@
+# models/docs/schema.yml
+models:
+  - name: bronze_parking_violation_codes
+    description: Raw data representing the violation codes and their fees.
+    columns:
+      - name: violation_code
+        description: '{{doc("violation_code")}}'
+        tests:
+          - unique
+          - not_null
+          - generic_not_null
+      - name: definition
+        description: Description of the violation for a respective code.
+      - name: manhattan_96th_st_below
+        description: The fee in $USD for a violation on or below Manhattan 96th Street.
+      - name: all_other_areas
+        description: The fee in $USD for a violation not on or below Manhattan 96th Street.
