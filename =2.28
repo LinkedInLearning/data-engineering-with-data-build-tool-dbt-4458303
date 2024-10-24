@@ -1,0 +1,5 @@
+Requirement already satisfied: requests in /Users/mac/anaconda3/lib/python3.11/site-packages (2.31.0)
+Requirement already satisfied: charset-normalizer<4,>=2 in /Users/mac/anaconda3/lib/python3.11/site-packages (from requests) (2.0.4)
+Requirement already satisfied: idna<4,>=2.5 in /Users/mac/anaconda3/lib/python3.11/site-packages (from requests) (3.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /Users/mac/anaconda3/lib/python3.11/site-packages (from requests) (1.26.16)
+Requirement already satisfied: certifi>=2017.4.17 in /Users/mac/anaconda3/lib/python3.11/site-packages (from requests) (2023.7.22)
