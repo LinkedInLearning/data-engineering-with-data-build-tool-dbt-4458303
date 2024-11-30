@@ -34,7 +34,7 @@ models:
   nyc_parking_violations:
     # Config indicated by + and applies to all files under models/example/
     example:
-      +materialized: ephemeral
+      +materialized: view
     bronze:
       +materialized: view
     silver:
