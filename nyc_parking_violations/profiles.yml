@@ -1,12 +1,12 @@
-nyc_parking_violations:
+nyc_parking_violations: #always remember to name correctly, change from default
   outputs:
    dev:
      type: duckdb
-     path: '../data/nyc_parking_violations.db'
+     path: '../data/nyc_parking_violations.db' #always add the path
    prod:
      type: duckdb
-     # note that path is slightly different as GitHub actions
+     # note that path is slightldbty different as GitHub actions
      # start in the root directory and not in the
      # nyc_parking_violations directory
-     path: './data/prod_nyc_parking_violations.db'  
+     path: '../data/prod_nyc_parking_violations.db'  
   target: dev
