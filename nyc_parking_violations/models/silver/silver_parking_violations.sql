@@ -1,4 +1,4 @@
-select
+SELECT
     summons_number,
     registration_state,
     plate_type,
@@ -19,5 +19,10 @@ select
     violation_legal_code,
     vehicle_color,
     vehicle_year,
-from
-    parking_violation_2023
+    CASE WHEN
+        violation_county == 'MN'
+        THEN TRUE
+        ELSE FALSE
+        END AS is_manhattan_96th_st_below
+FROM
+    {{ref('bronze_parking_violations')}}
