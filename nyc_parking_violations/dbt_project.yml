@@ -30,6 +30,22 @@ clean-targets: # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   nyc_parking_violations:
-    # # Config indicated by + and applies to all files under models/example/
-    # example:
-    #   +materialized: view
+    # Config indicated by + and applies to all files under models/example/
+    example:
+      +materialized: ephemeral
+    bronze:
+      +materialized: view
+    silver:
+      silver_parking_violation_codes:
+        +materialized: ephemeral # ephemeral = not visible to clients
+      silver_parking_violations:
+        +materialized: ephemeral
+      silver_violation_tickets:
+        +materialized: view
+      silver_violation_vehicles:
+        +materialized: view
+    gold:
+      +materialized: table
+
+tests:
+  +store_failures: true

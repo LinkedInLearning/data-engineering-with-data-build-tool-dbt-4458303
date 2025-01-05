@@ -3,3 +3,5 @@ node_modules
 .tmp
 npm-debug.log
 *logs/
+**/*.db
+data/nyc_parking_violations.db

@@ -19,5 +19,4 @@ select
     violation_legal_code,
     vehicle_color,
     vehicle_year,
-from
-    parking_violation_2023
+from parking_violation_2023

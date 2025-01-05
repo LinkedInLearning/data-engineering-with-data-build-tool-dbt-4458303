@@ -20,5 +20,7 @@
   "workbench.colorTheme": "Visual Studio Dark",
   "workbench.fontAliasing": "antialiased",
   "workbench.statusBar.visible": true,
-  "sqltools.useNodeRuntime": true
+  "sqltools.useNodeRuntime": true,
+  "dbt.enableNewLineagePanel": true,
+  "dbt.perspectiveTheme": "Pro Light"
 }

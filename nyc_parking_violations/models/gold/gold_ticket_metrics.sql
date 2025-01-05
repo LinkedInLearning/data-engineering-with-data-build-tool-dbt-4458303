@@ -2,7 +2,7 @@ SELECT
     violation_code,
     COUNT(summons_number) AS ticket_count,
     SUM(fee_usd) AS total_revenue_usd
-FROMDBT
+FROM
     {{ref('silver_violation_tickets')}}
 GROUP BY
     violation_code
