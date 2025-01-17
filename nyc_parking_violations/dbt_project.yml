@@ -41,12 +41,12 @@ models:
       silver_parking_violation_codes:
         +materialized: ephemeral
       silver_parking_violations:
-        +materialized: ephemeral
+        +materialized: ephemeral   
       silver_violation_tickets:
-        +materialized: view
+        +materialized: view                
       silver_violation_vehicles:
         +materialized: view
     gold:
-      +materialized: table
+      +materialized: table                
 tests:
   +store_failures: true
