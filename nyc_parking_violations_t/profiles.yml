@@ -1,4 +1,4 @@
-nyc_parking_violations:
+nyc_parking_violations_t:
   outputs:
    dev:
      type: duckdb
