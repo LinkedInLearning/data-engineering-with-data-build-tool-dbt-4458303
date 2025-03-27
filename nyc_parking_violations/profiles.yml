@@ -1,12 +1,18 @@
-nyc_parking_violations:
-  outputs:
-   dev:
-     type: duckdb
-     path: '../data/nyc_parking_violations.db'
-   prod:
-     type: duckdb
-     # note that path is slightly different as GitHub actions
-     # start in the root directory and not in the
-     # nyc_parking_violations directory
-     path: './data/prod_nyc_parking_violations.db'  
-  target: dev
+nyc_parking_violations: # This is the name of the dbt profile, matching the 'profile' key in dbt_project.yml
+  outputs: # Defines the different connection configurations (targets) for this profile
+    dev: # Configuration for the 'dev' environment
+      type: duckdb # Specifies that the database type is DuckDB
+      path: '../data/nyc_parking_violations.db' # The file path to the DuckDB database file for the development environment.
+                                              # '../' indicates moving one directory up from where dbt is executed.
+    prod: # Configuration for the 'prod' (production) environment
+      type: duckdb # Specifies that the database type is DuckDB
+      # note that path is slightly different as GitHub actions
+      # start in the root directory and not in the
+      # nyc_parking_violations directory
+      path: './data/prod_nyc_parking_violations.db' # The file path to the DuckDB database file for the production environment.
+                                                 # './' indicates the current directory where dbt is executed.
+                                                 # This note highlights that the path is adjusted because GitHub Actions
+                                                 # might run dbt from the root of the repository, not the project subdirectory.
+  target: dev # Specifies the default target environment to use when running dbt commands.
+              # In this case, the 'dev' configuration will be used unless a different
+              # target is specified using the `--target` flag (e.g., `dbt run --target prod`).

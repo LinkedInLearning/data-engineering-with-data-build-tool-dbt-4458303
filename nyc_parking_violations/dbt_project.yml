@@ -1,52 +1,90 @@
-
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
+# Name of the dbt project. Must contain only lowercase characters and underscores.
+# This name is used internally by dbt and helps organize your project.
 name: 'nyc_parking_violations'
+
+# The version of your dbt project. While dbt doesn't strictly enforce semantic
+# versioning, it's a good practice to follow.
 version: '1.0.0'
+
+# Specifies the dbt project configuration version. Currently, the standard is 2.
 config-version: 2
 
-# This setting configures which "profile" dbt uses for this project.
+# This setting configures which dbt "profile" will be used when running dbt commands
+# for this project. The profile is defined in your `profiles.yml` file and contains
+# the connection details for your data warehouse.
 profile: 'nyc_parking_violations'
 
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
+# These configurations tell dbt where to find different types of project files.
+# You generally don't need to modify these unless you have a very specific project structure.
+
+# Specifies the directory where your dbt models (SQL transformations) are located.
 model-paths: ["models"]
+
+# Specifies the directory for your dbt analyses (exploratory SQL queries).
 analysis-paths: ["analyses"]
+
+# Specifies the directory for your dbt tests (SQL assertions about your data).
 test-paths: ["tests"]
+
+# Specifies the directory for your dbt seeds (static CSV files that can be loaded
+# into your data warehouse).
 seed-paths: ["seeds"]
+
+# Specifies the directory for your dbt macros (reusable Jinja code snippets).
 macro-paths: ["macros"]
+
+# Specifies the directory for your dbt snapshots (tracking changes to data over time).
 snapshot-paths: ["snapshots"]
 
-clean-targets:         # directories to be removed by `dbt clean`
-  - "target"
-  - "dbt_packages"
+# Defines directories that will be removed when you run the `dbt clean` command.
+# This is useful for removing compiled SQL, logs, and other temporary files.
+clean-targets:
+  - "target"       # The directory where dbt compiles and runs your SQL.
+  - "dbt_packages" # The directory where dbt downloads any specified packages.
 
 
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# In this example config, we tell dbt to build all models in the example/
-# directory as views. These settings can be overridden in the individual model
-# files using the `{{ config(...) }}` macro.
+# Configuration for your dbt models. This section allows you to set project-wide
+# configurations that can be overridden at the individual model level.
 models:
+  # This key corresponds to the name of your dbt project.
   nyc_parking_violations:
-    # Config indicated by + and applies to all files under models/example/
+    # Configuration that applies to all models within the 'example' subdirectory.
     example:
+      # 'ephemeral' materialization means these models are not built as separate
+      # objects in your data warehouse. Their SQL is inserted directly into
+      # downstream models that depend on them.
       +materialized: ephemeral
+    # Configuration for models within the 'bronze' subdirectory.
     bronze:
+      # 'view' materialization means these models are built as SQL views in your
+      # data warehouse. Views are virtual tables based on the result of a stored query.
       +materialized: view
+    # Configuration for models within the 'silver' subdirectory.
     silver:
+      # Configuration for the 'silver_parking_violation_codes' subdirectory/model.
       silver_parking_violation_codes:
+        # 'ephemeral' materialization, similar to the 'example' models.
         +materialized: ephemeral
+      # Configuration for the 'silver_parking_violations' subdirectory/model.
       silver_parking_violations:
+        # 'ephemeral' materialization.
         +materialized: ephemeral
+      # Configuration for the 'silver_violation_tickets' subdirectory/model.
       silver_violation_tickets:
+        # 'view' materialization.
         +materialized: view
+      # Configuration for the 'silver_violation_vehicles' subdirectory/model.
       silver_violation_vehicles:
+        # 'view' materialization.
         +materialized: view
+    # Configuration for models within the 'gold' subdirectory.
     gold:
+      # 'table' materialization means these models are built as actual tables in
+      # your data warehouse, storing the results of the transformation.
       +materialized: table
+
+# Configuration for your dbt tests.
 tests:
+  # This setting tells dbt to store the details of failing tests in your data
+  # warehouse. This can be helpful for auditing and debugging test failures.
   +store_failures: true
