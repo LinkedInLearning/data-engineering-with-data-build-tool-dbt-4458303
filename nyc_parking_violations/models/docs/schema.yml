@@ -11,7 +11,7 @@ models:
       - name: all_other_areas
         description: '{{ doc("all_other_areas") }}'
 
-  - name: bronze_parking_violations 
+  - name: bronze_parking_violations
     description: Raw data related to parking violations in 2023, encompassing various details about each violation.
     columns:
       - name: summons_number
