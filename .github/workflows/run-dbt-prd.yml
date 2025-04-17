@@ -1,0 +1,39 @@
+# .github/workflows/run-dbt-prd.yml
+name: run_dbt_prd
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+env:
+  DBT_PROFILES_DIR: ./nyc_parking_violations
+  DBT_PROJECT_DIR: ./nyc_parking_violations
+
+jobs:
+  dbt_setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check dbt version
+        run: | 
+          dbt --version
+          dbt debug
+     
+      - name: Check compile & test
+        run: |     
+          dbt compile
+          dbt run
+          dbt test
