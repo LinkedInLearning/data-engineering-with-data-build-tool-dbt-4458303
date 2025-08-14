@@ -44,9 +44,9 @@ models:
         +materialized: ephemeral
       silver_violation_tickets:
         +materialized: view
-      silver_violation_vehicles:
+      silver_violation_vehicless:
         +materialized: view
-    gold:
+      gold:
       +materialized: table
 tests:
-  +store_failures: true
+  +store_failure: true
