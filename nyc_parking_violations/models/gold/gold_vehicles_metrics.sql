@@ -1,6 +1,6 @@
 SELECT
-    registration_state,
-    COUNT(summons_number) AS ticket_count,
+    registration_state
+    ,COUNT(summons_number) AS ticket_count
 FROM
     {{ref('silver_violation_vehicles')}}
 WHERE
