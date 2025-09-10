@@ -1,0 +1,12 @@
+nyc_parking_violations:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      threads: 16
+      account: KQEHYVI-VNB87559
+      user: sathishthandari
+      database: nyc_parking
+      warehouse: projects
+      schema: public
+      password: 7412369A@snowflake
