@@ -1,4 +1,4 @@
--- source: https://docs.getdbt.com/guides/best-practices/writing-custom-generic-tests#generic-tests-with-default-config-values
+-- source: https://docs.getdbt.com/guides/bedbt st-practices/writing-custom-generic-tests#generic-tests-with-default-config-values
 {% test generic_not_null(model, column_name) %}
 
     select *
