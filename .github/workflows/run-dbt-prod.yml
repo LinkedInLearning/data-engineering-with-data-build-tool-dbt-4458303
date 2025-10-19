@@ -2,6 +2,7 @@
 name: run_dbt_prod
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
   pull_request:
