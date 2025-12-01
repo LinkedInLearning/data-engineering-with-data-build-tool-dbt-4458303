@@ -2,12 +2,12 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'nyc_parking_violations'
+name: 'nyc_parking_violations_dbt_project'
 version: '1.0.0'
 config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
-profile: 'nyc_parking_violations'
+profile: 'nyc_parking_violations_dbt_project'
 
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
@@ -31,22 +31,18 @@ clean-targets:         # directories to be removed by `dbt clean`
 # directory as views. These settings can be overridden in the individual model
 # files using the `{{ config(...) }}` macro.
 models:
-  nyc_parking_violations:
+  nyc_parking_violations_dbt_project:
     # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: ephemeral
     bronze:
-      +materialized: view
+      +materialised: view
     silver:
       silver_parking_violation_codes:
-        +materialized: ephemeral
-      silver_parking_violations:
-        +materialized: ephemeral
-      silver_violation_tickets:
-        +materialized: view
-      silver_violation_vehicles:
-        +materialized: view
+        materialised: ephemeral
+      silver_parking_violations: 
+        materialised: ephemeral
+      silver_parking_violation_tickets: 
+        materialised: view
+      silver_parking_violation_vehicles: 
+        materialised: view
     gold:
-      +materialized: table
-tests:
-  +store_failures: true
+      +materialised: table
