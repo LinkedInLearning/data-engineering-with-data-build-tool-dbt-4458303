@@ -5,6 +5,7 @@ SELECT
     violations.is_manhattan_96th_st_below,
     violations.issuing_agency,
     violations.violation_location,
+    violations.registration_state,
     violations.violation_precinct,
     violations.issuer_precinct,
     violations.issuer_code,
@@ -17,6 +18,7 @@ SELECT
 FROM
     {{ref('silver_parking_violations')}} AS violations
 LEFT JOIN
-    {{ref('silver_parking_violation_codes')}} AS codes ON
-    violations.violation_code = codes.violation_code AND
-    violations.is_manhattan_96th_st_below = codes.is_manhattan_96th_st_below
+    {{ref('silver_parking_violation_codes')}} AS codes
+ON
+    violations.violation_code = codes.violation_code
+AND violations.is_manhattan_96th_st_below = codes.is_manhattan_96th_st_below
