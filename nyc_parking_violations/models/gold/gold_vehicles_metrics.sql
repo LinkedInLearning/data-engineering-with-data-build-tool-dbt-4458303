@@ -1,8 +1,8 @@
 SELECT
     registration_state,
-    COUNT(summons_number) AS ticket_count,
+    COUNT(summons_number) AS ticket_count
 FROM
-    {{ref('silver_violation_vehicles')}}
+    {{ref('silver_violation_tickets')}}
 WHERE
     registration_state != 'NY'
 GROUP BY

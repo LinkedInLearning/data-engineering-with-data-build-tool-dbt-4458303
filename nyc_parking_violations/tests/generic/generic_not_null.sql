@@ -1,8 +1,8 @@
--- source: https://docs.getdbt.com/guides/best-practices/writing-custom-generic-tests#generic-tests-with-default-config-values
 {% test generic_not_null(model, column_name) %}
+-- This test checks that there are no NULL values in the specified column of the given model.
+-- If any NULL values are found, the test will fail.
 
-    select *
+    select * 
     from {{ model }}
     where {{ column_name }} is null
-
 {% endtest %}
