@@ -1,0 +1,6 @@
+#!/workspaces/data-engineering-with-data-build-tool-dbt-4458303/.venv/bin/python3
+import sys
+from IPython import start_ipython
+if __name__ == '__main__':
+    sys.argv[0] = sys.argv[0].removesuffix('.exe')
+    sys.exit(start_ipython())
