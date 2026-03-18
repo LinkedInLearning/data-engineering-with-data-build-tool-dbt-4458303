@@ -1,11 +1,13 @@
 # .github/workflows/run-dbt-prod.yml
 name: run_dbt_prod
 
+#push and pull requests
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  ## schedule to run at 8am every single day
   # schedule:
   #   - cron: '0 8 * * *'
 
