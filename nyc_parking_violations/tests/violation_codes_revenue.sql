@@ -1,5 +1,4 @@
 {{ config(severity = 'warn') }}
-
 SELECT
     violation_code,
     SUM(fee_usd) AS total_revenue_usd
