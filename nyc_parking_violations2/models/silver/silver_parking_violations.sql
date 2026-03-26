@@ -19,5 +19,10 @@ SELECT
     violation_legal_code,
     vehicle_color,
     vehicle_year,
+    CASE WHEN
+        violation_county == 'MN'
+        THEN TRUE -- we are assuming if you parked here you live here but may not be true
+        ELSE FALSE
+        END AS is_manhattan_96th_st_below
 FROM
-    parking_violation_2023
+    {{ref('bronze_parking_violations')}}
