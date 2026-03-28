@@ -1,0 +1,10 @@
+select 
+  summons_number,
+  vehicle_year,
+  registration_state,
+  plate_type,
+  vehicle_body_type,
+  vehicle_make,
+  vehicle_expiration_date
+from 
+  {{ref('silver_parking_violations')}}

@@ -1,0 +1,21 @@
+select
+  summons_number,
+  violation_code,
+  violation_location,
+  violation_precinct,
+  issuer_precinct,
+  issuing_agency,
+  issuer_code,
+  issuer_command,
+  issuer_squad,
+  violation_time,
+  violation_county,
+  violation_legal_code,
+  vehicle_color,
+  vehicle_year,
+  registration_state,
+  plate_type,
+  vehicle_body_type,
+  vehicle_make,
+  vehicle_expiration_date
+from parking_violations_2023
