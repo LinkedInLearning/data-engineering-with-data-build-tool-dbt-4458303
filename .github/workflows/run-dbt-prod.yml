@@ -36,3 +36,4 @@ jobs:
     - name: Test dbt Prod
       run: |
         dbt test --target prod
+        
